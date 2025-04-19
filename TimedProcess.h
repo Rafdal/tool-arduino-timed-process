@@ -37,33 +37,32 @@ public:
      * @param interval time period to periodically call back
      */
     inline void setInterval(unsigned long interval) { this->interval = interval; }
-
-    /**
-     * @brief Enable or disable the process
-     * 
-     * @param enable true to enable, false to disable
-     */
-    inline void enable(bool enable) { enabled = enable; }
     
+
+    bool enabled;
+
+
 protected:
     virtual unsigned long getTime() = 0;
     
 private:
     unsigned long lastTime;
     unsigned long interval;
-    bool enabled;
     void (*callback)(void);
 };
 
 inline void TimedProcess::run()
 {
-    unsigned long time = getTime();
-    if(time - lastTime >= interval)
+    if (enabled)
     {
-        if( callback != NULL)
-            callback();
-            
-        lastTime = time;
+        unsigned long time = getTime();
+        if(time - lastTime >= interval)
+        {
+            if( callback != NULL)
+                callback();
+                
+            lastTime = time;
+        }
     }
 }
 
