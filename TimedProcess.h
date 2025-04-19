@@ -30,9 +30,16 @@ public:
      */
     inline void run();
 
+    /**
+     * @brief Set the interval time
+     * 
+     * @param interval time period to periodically call back
+     */
+    inline void setInterval(unsigned long interval) { this->interval = interval; }
+    
 protected:
     virtual unsigned long getTime() = 0;
-
+    
 private:
     unsigned long lastTime;
     unsigned long interval;
