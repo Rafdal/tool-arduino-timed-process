@@ -14,6 +14,7 @@ public:
     {
         callback = NULL;
         lastTime = 0;
+        enabled = true;
     }
 
     /**
@@ -36,6 +37,13 @@ public:
      * @param interval time period to periodically call back
      */
     inline void setInterval(unsigned long interval) { this->interval = interval; }
+
+    /**
+     * @brief Enable or disable the process
+     * 
+     * @param enable true to enable, false to disable
+     */
+    inline void enable(bool enable) { enabled = enable; }
     
 protected:
     virtual unsigned long getTime() = 0;
@@ -43,6 +51,7 @@ protected:
 private:
     unsigned long lastTime;
     unsigned long interval;
+    bool enabled;
     void (*callback)(void);
 };
 
